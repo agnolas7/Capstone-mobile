@@ -17,11 +17,10 @@ import { DrawerContentScrollView } from "@react-navigation/drawer";
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-// Mock user role (replace with actual user role logic)
-const userRole = "operations_manager"; // Example role
-
 // Custom Drawer Content
 function CustomDrawerContent(props) {
+  const { role } = props; // Get the role from props
+
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.drawerContent}>
@@ -35,31 +34,35 @@ function CustomDrawerContent(props) {
         </View>
 
         {/* Menu Items */}
-        <TouchableOpacity
-          style={styles.drawerItem}
-          onPress={() => props.navigation.navigate("DeliveryRecords")}
-        >
-          <Ionicons name="record-outline" size={24} color="white" />
-          <Text style={styles.drawerItemText}>Delivery Records</Text>
-        </TouchableOpacity>
+        {role === "driver" && (
+          <>
+            <TouchableOpacity
+              style={styles.drawerItem}
+              onPress={() => props.navigation.navigate("DeliveryRecords")}
+            >
+              <Ionicons name="record-outline" size={24} color="white" />
+              <Text style={styles.drawerItemText}>Delivery Records</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.drawerItem}
-          onPress={() => props.navigation.navigate("FuelManagement")}
-        >
-          <Ionicons name="fuel-outline" size={24} color="white" />
-          <Text style={styles.drawerItemText}>Fuel Management</Text>
-        </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.drawerItem}
+              onPress={() => props.navigation.navigate("FuelManagement")}
+            >
+              <Ionicons name="fuel-outline" size={24} color="white" />
+              <Text style={styles.drawerItemText}>Fuel Management</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.drawerItem}
-          onPress={() => props.navigation.navigate("ShipmentProgress")}
-        >
-          <Ionicons name="ship-outline" size={24} color="white" />
-          <Text style={styles.drawerItemText}>Shipment Progress</Text>
-        </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.drawerItem}
+              onPress={() => props.navigation.navigate("ShipmentProgress")}
+            >
+              <Ionicons name="ship-outline" size={24} color="white" />
+              <Text style={styles.drawerItemText}>Shipment Progress</Text>
+            </TouchableOpacity>
+          </>
+        )}
 
-        {userRole === "operations_manager" && (
+        {role === "operations_manager" && (
           <>
             <TouchableOpacity
               style={styles.drawerItem}
@@ -92,37 +95,33 @@ function CustomDrawerContent(props) {
 }
 
 // Drawer Navigator
-function MainDrawerNavigator() {
+function MainDrawerNavigator({ route }) {
+  const { role } = route.params; // Get the role from route params
+
   return (
     <Drawer.Navigator
-      drawerContent={(props) => <CustomDrawerContent {...props} />}
+      drawerContent={(props) => <CustomDrawerContent {...props} role={role} />}
     >
-      <Drawer.Screen
-        name="DeliveryRecords"
-        component={DeliveryRecordsScreen}
-        options={{ title: "Delivery Records", headerShown: false }}
-      />
-      <Drawer.Screen
-        name="FuelManagement"
-        component={FuelManagementScreen}
-        options={{ title: "Fuel Management", headerShown: false }}
-      />
-      <Drawer.Screen
-        name="ShipmentProgress"
-        component={ShipmentProgressScreen}
-        options={{ title: "Shipment Progress", headerShown: false }}
-      />
-      <Drawer.Screen
-        name="ProfileManagement"
-        component={ProfileManagementScreen}
-        options={{ title: "Profile Management", headerShown: false }}
-      />
-      <Drawer.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={{ title: "Settings", headerShown: false }}
-      />
-      {userRole === "operations_manager" && (
+      {role === "driver" && (
+        <>
+          <Drawer.Screen
+            name="DeliveryRecords"
+            component={DeliveryRecordsScreen}
+            options={{ title: "Delivery Records", headerShown: false }}
+          />
+          <Drawer.Screen
+            name="FuelManagement"
+            component={FuelManagementScreen}
+            options={{ title: "Fuel Management", headerShown: false }}
+          />
+          <Drawer.Screen
+            name="ShipmentProgress"
+            component={ShipmentProgressScreen}
+            options={{ title: "Shipment Progress", headerShown: false }}
+          />
+        </>
+      )}
+      {role === "operations_manager" && (
         <>
           <Drawer.Screen
             name="QRScanner"
@@ -136,6 +135,16 @@ function MainDrawerNavigator() {
           />
         </>
       )}
+      <Drawer.Screen
+        name="ProfileManagement"
+        component={ProfileManagementScreen}
+        options={{ title: "Profile Management", headerShown: false }}
+      />
+      <Drawer.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{ title: "Settings", headerShown: false }}
+      />
     </Drawer.Navigator>
   );
 }
