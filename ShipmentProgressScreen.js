@@ -1,13 +1,8 @@
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import QRCode from 'react-native-qrcode-svg'; // Import QRCode
+import React, { useState } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import QRCode from "react-native-qrcode-svg"; // Import QRCode
 
 export default function ShipmentProgressScreen() {
   const navigation = useNavigation();
@@ -15,17 +10,17 @@ export default function ShipmentProgressScreen() {
   // State to store the data for the QR code (replace with your actual cargo details)
   const [qrCodeData, setQrCodeData] = useState(null);
   const cargoDetails = {
-    date: '31/10/2024',
-    plateNo: 'RA123',
-    eirNo: 'LKJ4356',
-    containerVanNo: 'W46576',
-    size: '20DC',
-    shipperConsignee: 'Century Pacific Food',
-    voyageVessel: 'LCDM',
-    no: '23457',
-    pickupLocation: 'CYVTA',
-    deliveryLocation: 'MNLP16',
-    status: 'In Transit',
+    date: "31/10/2024",
+    plateNo: "RA123",
+    eirNo: "LKJ4356",
+    containerVanNo: "W46576",
+    size: "20DC",
+    shipperConsignee: "Century Pacific Food",
+    voyageVessel: "LCDM",
+    no: "23457",
+    pickupLocation: "CYVTA",
+    deliveryLocation: "MNLP16",
+    status: "In Transit",
   };
 
   // Function to generate the QR code data
@@ -47,14 +42,10 @@ export default function ShipmentProgressScreen() {
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Shipment Progress</Text>
         <TouchableOpacity
-        style={styles.profileButton}
-        onPress={() => navigation.navigate('ProfileManagement')}
-      >
-          <Ionicons
-            name="person-circle-outline"
-            size={30}
-            color="black"
-          />
+          style={styles.profileButton}
+          onPress={() => navigation.navigate("ProfileManagement")}
+        >
+          <Ionicons name="person-circle-outline" size={30} color="black" />
         </TouchableOpacity>
       </View>
 
@@ -86,20 +77,32 @@ export default function ShipmentProgressScreen() {
             onPress={qrCodeData ? () => setQrCodeData(null) : generateQRCode}
           >
             <Text style={styles.generateButtonText}>
-              {qrCodeData ? 'QR Code' : 'Generate QR Code'}
+              {qrCodeData ? "QR Code" : "Generate QR Code"}
             </Text>
           </TouchableOpacity>
 
           <Text style={styles.cargoText}>Date: {cargoDetails.date}</Text>
-          <Text style={styles.cargoText}>Plate No.: {cargoDetails.plateNo}</Text>
+          <Text style={styles.cargoText}>
+            Plate No.: {cargoDetails.plateNo}
+          </Text>
           <Text style={styles.cargoText}>EIR No.: {cargoDetails.eirNo}</Text>
-          <Text style={styles.cargoText}>Container Van No.: {cargoDetails.containerVanNo}</Text>
+          <Text style={styles.cargoText}>
+            Container Van No.: {cargoDetails.containerVanNo}
+          </Text>
           <Text style={styles.cargoText}>Size: {cargoDetails.size}</Text>
-          <Text style={styles.cargoText}>Shipper/Consignee: {cargoDetails.shipperConsignee}</Text>
-          <Text style={styles.cargoText}>Voyage Vessel: {cargoDetails.voyageVessel}</Text>
+          <Text style={styles.cargoText}>
+            Shipper/Consignee: {cargoDetails.shipperConsignee}
+          </Text>
+          <Text style={styles.cargoText}>
+            Voyage Vessel: {cargoDetails.voyageVessel}
+          </Text>
           <Text style={styles.cargoText}>No.: {cargoDetails.no}</Text>
-          <Text style={styles.cargoText}>Pickup Location: {cargoDetails.pickupLocation}</Text>
-          <Text style={styles.cargoText}>Delivery Location: {cargoDetails.deliveryLocation}</Text>
+          <Text style={styles.cargoText}>
+            Pickup Location: {cargoDetails.pickupLocation}
+          </Text>
+          <Text style={styles.cargoText}>
+            Delivery Location: {cargoDetails.deliveryLocation}
+          </Text>
           <Text style={styles.cargoText}>Status: {cargoDetails.status}</Text>
 
           {/* Display QR Code (conditionally) */}
@@ -122,14 +125,14 @@ export default function ShipmentProgressScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: "#f0f0f0",
     padding: 20,
     top: 40,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 20,
   },
   menuButton: {
@@ -137,32 +140,32 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   profileButton: {
     padding: 5,
   },
   progressContent: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 10,
     padding: 20,
   },
   progressSteps: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     marginBottom: 20,
   },
   step: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   stepNumber: {
     fontSize: 18,
-    fontWeight: 'bold',
-    backgroundColor: '#ddd',
+    fontWeight: "bold",
+    backgroundColor: "#ddd",
     borderRadius: 20,
     width: 40,
     height: 40,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 40,
     marginBottom: 5,
   },
@@ -170,14 +173,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   cargoDetails: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: "#f0f0f0",
     padding: 15,
     borderRadius: 5,
-    position: 'relative', // Relative positioning for absolute button
+    position: "relative", // Relative positioning for absolute button
   },
   cargoTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   cargoText: {
@@ -185,22 +188,22 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   generateButton: {
-    backgroundColor: '#19284D',
+    backgroundColor: "#19284D",
     padding: 10,
     borderRadius: 5,
-    alignItems: 'center',
-    position: 'absolute', // Absolute positioning
+    alignItems: "center",
+    position: "absolute", // Absolute positioning
     top: 10, // Adjust as needed
     right: 10, // Adjust as needed
     zIndex: 1, // Ensure it's on top
   },
   generateButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
+    color: "white",
+    fontWeight: "bold",
     fontSize: 10,
   },
   qrCodeContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 20,
   },
 });
